@@ -58,57 +58,57 @@ class Solution(object):
     # 基本思想：分治法策略进行二路归并，每次操作都是把两个有序序列合并为一个
     # 时间复杂度：O(nlogn)
 
-    def merge_sort(self, random_list):
-        if len(random_list) > 1:
-            mid = len(random_list) // 2
-            left_half = random_list[:mid]
-            right_half = random_list[mid:]
-            self.merge_sort(left_half)
-            self.merge_sort(right_half)
+    def merge_sort(self):
+        if len(self.random_list) > 1:
+            mid = len(self.random_list) // 2
+            left_half = self.random_list[:mid]
+            right_half = self.random_list[mid:]
+            Solution(left_half).merge_sort()
+            Solution(right_half).merge_sort()
             i = j = k = 0
             # 反复复制两分段中最小值
             while i < len(left_half) and j < len(right_half):
                 if left_half[i] < right_half[j]:
-                    random_list[k] = left_half[i]
+                    self.random_list[k] = left_half[i]
                     i += 1
                 else:
-                    random_list[k] = right_half[j]
+                    self.random_list[k] = right_half[j]
                     j += 1
                 k += 1
             # 复制前分段剩余数据
             while i < len(left_half):
-                random_list[k] = left_half[i]
+                self.random_list[k] = left_half[i]
                 i += 1
                 k += 1
             # 复制后分段剩余数据
             while j < len(right_half):
-                random_list[k] = right_half[j]
+                self.random_list[k] = right_half[j]
                 j += 1
                 k += 1
-        return random_list
+        return self.random_list
 
     ##########quick sort###########
 
     # 基本思想：选择最后的元素作为主元，数组划分为四部分“主元+不大于主元+小于主元+未处理”
     # 时间复杂度：O(nlogn)
-    def quick_sort(self, random_list, begin_ind, end_ind):
+    def quick_sort(self, begin_ind, end_ind):
         if begin_ind >= end_ind:
             return
         # 选择最后的元素作为主元
-        pivot = random_list[end_ind]
+        pivot = self.random_list[end_ind]
         # i指向需排序数组首元素之前
         i = begin_ind - 1
         # j初始时指向首元素,随后一直移动到主元前面的元素位置
         for j in range(begin_ind, end_ind):
-            if random_list[j] < pivot:  # 发现小元素
+            if self.random_list[j] < pivot:  # 发现小元素
                 i += 1   # i向后移动一个位置
-                random_list[i], random_list[j] = random_list[j], random_list[i]  # 小元素换位
+                self.random_list[i], self.random_list[j] = self.random_list[j], self.random_list[i]  # 小元素换位
         # 主元被交换,位于两部分之间,位置索引为i+1
-        random_list[end_ind], random_list[i+1] = random_list[i+1], random_list[end_ind]
+        self.random_list[end_ind], self.random_list[i+1] = self.random_list[i+1], self.random_list[end_ind]
         # 按照相同方式，以递归调用分别处理两部分，直至排序完成
-        self.quick_sort(random_list, begin_ind, i)
-        self.quick_sort(random_list, i+2, end_ind)
-        return random_list
+        self.quick_sort(begin_ind, i)
+        self.quick_sort(i+2, end_ind)
+        return self.random_list
 
 
 ##################测试用例######################
@@ -118,8 +118,8 @@ def main():
     #print(Solution(random_list).insert_sort())
     #print(Solution(random_list).bubble_sort())  # 实际效果劣于插入排序
     #print(Solution(random_list).select_sort())  # 不如插入排序
-    #print(Solution(random_list).merge_sort(random_list))
-    print(Solution(random_list).quick_sort(random_list, 0, len(random_list)-1))
+    #print(Solution(random_list).merge_sort())
+    print(Solution(random_list).quick_sort(0, len(random_list)-1))
 
 if __name__ == "__main__":
     main()
