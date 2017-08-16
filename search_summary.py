@@ -30,9 +30,9 @@ def binarySearch_rec(random_list, item, first_ind, last_ind):
         if random_list[mid_index] == item:
             item_index = mid_index
         elif random_list[mid_index] < item:
-           return binarySearch_rec(random_list, item, mid_index+1, last_ind)
+            item_index = binarySearch_rec(random_list, item, mid_index+1, last_ind)
         else:
-            return binarySearch_rec(random_list, item, first_ind, mid_index-1)
+            item_index = binarySearch_rec(random_list, item, first_ind, mid_index-1)
     return item_index
 
 #################测试用例#################
