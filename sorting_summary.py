@@ -92,6 +92,7 @@ class Solution(object):
     # 基本思想：选择最后的元素作为主元，数组划分为四部分“主元+不大于主元+小于主元+未处理”
     # 时间复杂度：O(nlogn)
     def quick_sort(self, begin_ind, end_ind):
+        # 作为递归结束的条件，也可按照merge_sort中的写法
         if begin_ind >= end_ind:
             return
         # 选择最后的元素作为主元
